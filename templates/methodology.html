@@ -1,0 +1,135 @@
+﻿{% extends "base.html" %}
+{% block content %}
+
+<div class="center-title">
+  <h1>মেথডলজি (Methodology)</h1>
+  <p>এই সিস্টেম কীভাবে বাংলা সংবাদ শিরোনামের ভাষাগত পক্ষপাত বিশ্লেষণ করে।</p>
+</div>
+
+<div class="notice">
+  <div class="i">i</div>
+  এই টুলটি ভাষাগত ফ্রেমিং বিশ্লেষণ করে — সংবাদের সত্যতা বা রাজনৈতিক উদ্দেশ্য যাচাই করে না।
+</div>
+
+<div class="bigcard">
+  <div class="bighead">
+    <div class="iconbig">🏷️</div>
+    <div>
+      <div class="bigtitle">বায়াস লেবেল সিস্টেম</div>
+      <div class="bigsub">CLASSIFICATION LABELS</div>
+    </div>
+  </div>
+  <div class="twocol">
+    <div class="box">
+      <div class="lbltitle">তিনটি শ্রেণী</div>
+      <div class="lblrow"><span class="dot green"></span> Government-Favorable — সরকারকে ইতিবাচকভাবে উপস্থাপন</div>
+      <div class="lblrow"><span class="dot gray"></span> Neutral — নিরপেক্ষ তথ্যমূলক উপস্থাপন</div>
+      <div class="lblrow"><span class="dot red"></span> Government-Critic — সরকারের সমালোচনামূলক উপস্থাপন</div>
+    </div>
+    <div class="box">
+      <div class="lbltitle">লেবেলিং নীতি</div>
+      <p style="color:#64748b; line-height:1.6;">
+        লেবেলগুলো ভাষার ফ্রেমিং অনুযায়ী নির্ধারিত হয়, কোনো রাজনৈতিক
+        অবস্থান বা সংবাদের সত্যতার ভিত্তিতে নয়। একই ঘটনা ভিন্ন
+        ভাষায় ভিন্ন লেবেল পেতে পারে।
+      </p>
+    </div>
+  </div>
+</div>
+
+<div class="section-title">FRAMING EXAMPLES</div>
+<div class="fact-row">
+  <div class="fact bad">
+    <div class="fact-title">GOVERNMENT-CRITIC FRAMING</div>
+    <div class="fact-quote">"ভুল নীতির কারণে অর্থনীতি রসাতলে, লক্ষ মানুষ বেকার"</div>
+    <div class="fact-note">দোষারোপমূলক ভাষা ও নেতিবাচক পরিণতির উপর জোর।</div>
+  </div>
+  <div class="fact good">
+    <div class="fact-title">GOVERNMENT-FAVORABLE FRAMING</div>
+    <div class="fact-quote">"সরকারের অভূতপূর্ব সফলতায় আন্তর্জাতিক স্বীকৃতি"</div>
+    <div class="fact-note">প্রশংসামূলক ভাষা ও ইতিবাচক অর্জনের উপর জোর।</div>
+  </div>
+</div>
+
+<div class="two-section" style="margin-top:22px;">
+  <div>
+    <div class="sec-head">কীভাবে ব্যবহার করবেন</div>
+    <div class="use-card">
+      <div class="use-title">STEP 01 — INPUT</div>
+      <div class="use-text">বাংলা সংবাদ শিরোনাম হুবহু কপি করে ইনপুট বক্সে পেস্ট করুন।</div>
+    </div>
+    <div class="use-card">
+      <div class="use-title">STEP 02 — SCAN</div>
+      <div class="use-text">"স্ক্যান শুরু করুন" বাটনে ক্লিক করুন এবং ফলাফলের জন্য অপেক্ষা করুন।</div>
+    </div>
+    <div class="use-card">
+      <div class="use-title">STEP 03 — INTERPRET</div>
+      <div class="use-text">ফলাফলে লেবেল ও কনফিডেন্স স্কোর দেখুন। কম কনফিডেন্স মানে ভাষা মিশ্র।</div>
+    </div>
+  </div>
+  <div>
+    <div class="sec-head">সীমাবদ্ধতা</div>
+    <div class="limit-card">
+      <div class="lim-title">ব্যঙ্গ ও রূপক ভাষা</div>
+      <div class="lim-text">সিস্টেম সরাসরি ভাষা বিশ্লেষণ করে। ব্যঙ্গাত্মক শিরোনামে ভুল হতে পারে।</div>
+    </div>
+    <div class="limit-card mt">
+      <div class="lim-title">প্রেক্ষাপট-নির্ভর শিরোনাম</div>
+      <div class="lim-text">যে শিরোনামের অর্থ বুঝতে বাড়তি প্রেক্ষাপট দরকার, সেগুলোতে নির্ভুলতা কমে।</div>
+    </div>
+    <div class="limit-card mt">
+      <div class="lim-title">উপভাষা ও আঞ্চলিক ভাষা</div>
+      <div class="lim-text">মডেলটি মূলত প্রমিত বাংলায় প্রশিক্ষিত। আঞ্চলিক বা কথ্য ভাষায় নির্ভুলতা কম।</div>
+    </div>
+  </div>
+</div>
+
+<div class="section-title" style="margin-top:48px;">MODEL PROCESSING LOGIC</div>
+
+<div class="steps4">
+  <div class="step">
+    <div class="stepno">01</div>
+    <div class="steptitle">Normalization</div>
+    <div class="steptext">বাংলা টেক্সট ও যতিচিহ্ন প্রক্রিয়াকরণ।</div>
+  </div>
+  <div class="step">
+    <div class="stepno">02</div>
+    <div class="steptitle">Contextual ML</div>
+    <div class="steptext">শব্দের প্রসঙ্গের উপর ভিত্তি করে লজিক তৈরি।</div>
+  </div>
+  <div class="step">
+    <div class="stepno">03</div>
+    <div class="steptitle">Signal Extraction</div>
+    <div class="steptext">আবেগপ্রবণ ও ফ্রেমিং সিগন্যাল শনাক্তকরণ।</div>
+  </div>
+  <div class="step">
+    <div class="stepno">04</div>
+    <div class="steptitle">Final Weights</div>
+    <div class="steptext">নির্ভরযোগ্যতার শতাংশের সাথে ফলাফল প্রদান।</div>
+  </div>
+</div>
+
+<div class="darkwide" style="margin-top:22px;">
+  <div>
+    <div class="dwtitle blue">WHAT IT DOES</div>
+    <div class="dwlist">✓ &nbsp;ভাষাগত ফ্রেমিং বিশ্লেষণ করে</div>
+    <div class="dwlist">✓ &nbsp;আবেগপ্রবণ শব্দের প্রভাব শনাক্ত করে</div>
+    <div class="dwlist">✓ &nbsp;অ্যাট্রিবিউশন বায়াস চিহ্নিত করে</div>
+  </div>
+  <div>
+    <div class="dwtitle red">WHAT IT DOES NOT</div>
+    <div class="dwlist x">✕ &nbsp;সংবাদের সত্যতা বিচার করে না</div>
+    <div class="dwlist x">✕ &nbsp;রাজনৈতিক উদ্দেশ্য অনুমান করে না</div>
+    <div class="dwlist x">✕ &nbsp;কোনো রাজনৈতিক দলের সমর্থন দেয় না</div>
+  </div>
+</div>
+
+<div class="confidence" style="margin-top:22px;">
+  <div class="confhead">CONFIDENCE_WEIGHTING</div>
+  <div class="conftext">
+    শিরোনাম অত্যন্ত সংক্ষিপ্ত হলে বা এতে প্রসঙ্গের অভাব থাকলে এআই সিস্টেমের অনিশ্চয়তা বাড়ে।
+    ১০০% আত্মবিশ্বাস বিরল, কারণ ভাষা প্রতিনিয়ত বিবর্তিত হচ্ছে।
+  </div>
+</div>
+
+{% endblock %}

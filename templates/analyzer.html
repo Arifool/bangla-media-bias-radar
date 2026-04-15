@@ -1,0 +1,166 @@
+{% extends "base.html" %}
+{% block content %}
+
+<div class="grid-2">
+
+  <!-- LEFT COLUMN -->
+  <div>
+    <div class="darkcard">
+      <div class="dark-title">মূল দর্শন (Philosophy)</div>
+      <div class="dark-quote">"সংবাদ শুধু তথ্য দেয় না — দৃষ্টিভঙ্গিও তৈরি করে।"</div>
+      <div class="dark-text">
+        আমরা খবরের ভাষা বিশ্লেষণ করি, মতামত নয়। আমাদের লক্ষ্য হলো এই
+        দৃষ্টিভঙ্গি বা 'ফ্রেমিং' জনসাধারণের কাছে দৃশ্যমান করা।
+      </div>
+    </div>
+
+    <div class="card mt">
+      <div class="card-head">
+        <div class="iconbox">🔍</div>
+        <div>
+          <div class="card-title">সংবাদ বিশ্লেষণ (Analysis)</div>
+        </div>
+      </div>
+
+      <form class="form" method="POST">
+        <div>
+          <div class="label">HEADLINE (বাংলা শিরোনাম - আবশ্যক)</div>
+          <input
+            class="input"
+            type="text"
+            name="headline"
+            placeholder="সরকারের 'অভাবনীয়' উন্নয়নে দেশবাসী উল্লসিত"
+            value="{{ result.headline if result else '' }}"
+            required
+          />
+        </div>
+
+        <div class="help">* শিরোনাম লিখুন — ভাষার ধরন বিশ্লেষণ করা হবে।</div>
+
+        <div class="row2">
+          <div>
+            <div class="label">CHANNEL (সংবাদ মাধ্যম)</div>
+            <input
+              class="input"
+              type="text"
+              name="channel"
+              placeholder="যেমন: প্রথম আলো"
+              value="{{ result.channel if result else '' }}"
+            />
+          </div>
+          <div>
+            <div class="label">DATE (প্রকাশের তারিখ)</div>
+            <input
+              class="input"
+              type="date"
+              name="date"
+              value="{{ result.date if result else '' }}"
+            />
+          </div>
+        </div>
+
+        <button class="btn-primary" type="submit">স্ক্যান শুরু করুন (SCAN_LAB)</button>
+      </form>
+    </div>
+  </div>
+
+  <!-- RIGHT COLUMN -->
+  <div>
+    {% if result %}
+    <div class="card">
+      <div class="result-title">বিশ্লেষণ ফলাফল (Analysis Result)</div>
+
+      <div class="result-line">
+        <span class="tag">HEADLINE</span>
+        <span style="font-weight:800; max-width:320px; text-align:right;">{{ result.headline }}</span>
+      </div>
+
+      {% if result.channel %}
+      <div class="result-line">
+        <span class="tag">CHANNEL</span>
+        <span class="mono">{{ result.channel }}</span>
+      </div>
+      {% endif %}
+
+      {% if result.date %}
+      <div class="result-line">
+        <span class="tag">DATE</span>
+        <span class="mono">{{ result.date }}</span>
+      </div>
+      {% endif %}
+
+      <div class="result-line">
+        <span class="tag">PREDICTION</span>
+        <span class="badge mono" style="color:{{ result.color }}; border-color:{{ result.color }};">
+          {{ result.label }}
+        </span>
+      </div>
+
+      <div class="result-line">
+        <span class="tag">CONFIDENCE</span>
+        <span class="mono">{{ result.confidence }}%</span>
+      </div>
+
+      <div class="barwrap">
+        <div class="barlabel">PROBABILITY BREAKDOWN</div>
+        <div class="bars">
+          <div class="bar">
+            <div style="display:flex; justify-content:space-between; font-weight:900;">
+              <span style="color:#22c55e;">Government-Favorable — সরকারকে ইতিবাচকভাবে উপস্থাপন</span>
+              <span>{{ result.probs.pro }}%</span>
+            </div>
+            <div style="margin-top:6px; height:6px; border-radius:999px; background:#e2e8f0;">
+              <div style="height:100%; border-radius:999px; background:#22c55e; width:{{ result.probs.pro }}%;"></div>
+            </div>
+          </div>
+          <div class="bar">
+            <div style="display:flex; justify-content:space-between; font-weight:900;">
+              <span style="color:#94a3b8;">Neutral — নিরপেক্ষ তথ্যমূলক উপস্থাপন</span>
+              <span>{{ result.probs.neutral }}%</span>
+            </div>
+            <div style="margin-top:6px; height:6px; border-radius:999px; background:#e2e8f0;">
+              <div style="height:100%; border-radius:999px; background:#94a3b8; width:{{ result.probs.neutral }}%;"></div>
+            </div>
+          </div>
+          <div class="bar">
+            <div style="display:flex; justify-content:space-between; font-weight:900;">
+              <span style="color:#ef4444;">Government-Critic — সরকারের সমালোচনামূলক উপস্থাপন</span>
+              <span>{{ result.probs.anti }}%</span>
+            </div>
+            <div style="margin-top:6px; height:6px; border-radius:999px; background:#e2e8f0;">
+              <div style="height:100%; border-radius:999px; background:#ef4444; width:{{ result.probs.anti }}%;"></div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="smallnote">
+        ⚠️ এই বিশ্লেষণ ভাষাগত ফ্রেমিং শনাক্ত করে — সংবাদের সত্যতা বা রাজনৈতিক উদ্দেশ্য যাচাই করে না।
+      </div>
+    </div>
+
+    {% else %}
+
+    <div class="labcenter">
+      <div class="labicon">🧪</div>
+      <div class="labtitle">অ্যানালাইজার ল্যাব (Analyzer Lab)</div>
+      <div class="labsub">শিরোনাম লিখুন — মতামত নয়, ভাষার ধরন বিশ্লেষণ করা হবে।</div>
+    </div>
+
+    <div class="sample-row">
+      <div class="sample">
+        <div class="sample-title">নমুনা শিরোনাম (SAMPLE A)</div>
+        <div class="sample-text">সরকারের অভূতপূর্ব সফলতায় আন্তর্জাতিক...</div>
+      </div>
+      <div class="sample">
+        <div class="sample-title">নমুনা শিরোনাম (SAMPLE B)</div>
+        <div class="sample-text">ভুল নীতির কারণে অর্থনীতি রসাতলে...</div>
+      </div>
+    </div>
+
+    {% endif %}
+  </div>
+
+</div>
+
+{% endblock %}

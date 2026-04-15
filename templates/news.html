@@ -1,0 +1,36 @@
+{% extends "base.html" %}
+{% block content %}
+
+<div class="center-title">
+  <h1>সংবাদ মাধ্যমসমূহ (News Channels)</h1>
+  <p>নিচের যেকোনো সংবাদ মাধ্যমে ক্লিক করলে তাদের অফিসিয়াল ওয়েবসাইট নতুন ট্যাবে ওপেন হবে।</p>
+</div>
+
+<div class="cards3">
+  {% for c in channels %}
+  <div class="news-card">
+    <div class="news-top">
+      <div class="kicker">CHANNEL</div>
+      <div class="today">BD</div>
+    </div>
+
+    <div class="news-head">{{ c.name }}</div>
+
+    <div class="news-snippet">
+      অফিসিয়াল সাইটে যেতে “Visit Website” বাটনে ক্লিক করুন।
+    </div>
+
+    <div class="news-bottom">
+      <a class="btn-outline" href="{{ c.url }}" target="_blank" rel="noopener noreferrer">
+        Visit Website ↗
+      </a>
+
+      <a class="link" href="{{ url_for('analyzer') }}">
+        ANALYZE BIAS →
+      </a>
+    </div>
+  </div>
+  {% endfor %}
+</div>
+
+{% endblock %}

@@ -1,0 +1,47 @@
+﻿<!doctype html>
+<html lang="bn">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>বাংলা মিডিয়া বায়াস রাডার</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Hind+Siliguri:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="{{ url_for('static', filename='styles.css') }}">
+</head>
+<body>
+  <header class="topbar">
+    <div class="container navwrap">
+      <div class="brand">
+        <div class="logo">B</div>
+        <div>
+          <div class="brand-title">বাংলা মিডিয়া বায়াস রাডার</div>
+          <div class="brand-sub">RESEARCH LAB & ANALYZER</div>
+        </div>
+      </div>
+
+      <nav class="nav">
+        <a class="navlink {{ 'active' if active=='analyzer' else '' }}" href="{{ url_for('analyzer') }}">Analyzer</a>
+        <a class="navlink {{ 'active' if active=='news' else '' }}" href="{{ url_for('news') }}">News</a>
+        <a class="navlink {{ 'active' if active=='methodology' else '' }}" href="{{ url_for('methodology') }}">Methodology</a>
+        <a class="navlink {{ 'active' if active=='ethics' else '' }}" href="{{ url_for('ethics') }}">Ethics</a>
+      </nav>
+    </div>
+  </header>
+
+  <main class="container page">
+    {% block content %}{% endblock %}
+  </main>
+
+  <footer class="footer container">
+    <div class="footer-left">
+      এই টুলটি সাংবাদিকতা ও মিডিয়া বিশ্লেষণের জন্য — কোনো রাজনৈতিক সিদ্ধান্তের জন্য নয়।<br>
+      © 2024 MEDIA BIAS RADAR LAB
+    </div>
+    <div class="footer-right">
+      <span class="pill">V1.3 BANGLA_NLP</span>
+      <span class="pill">ACADEMIC_LICENSE</span>
+    </div>
+  </footer>
+</body>
+</html>
